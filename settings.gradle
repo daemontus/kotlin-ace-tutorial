@@ -1,3 +1,5 @@
 rootProject.name = 'kotlin-ace-tutorial'
 
 include 'kotlin-ace-tutorial-jvm', 'kotlin-ace-tutorial-js'
+include 'demo'
+

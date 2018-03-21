@@ -1,0 +1,78 @@
+buildscript {
+    ext.kotlin_version = '1.2.30'
+    // The directory is outside of the whole project because then idea would index it upon every rebuild
+    // which can be quite slow and rather useless.
+    ext.web_dir = '../../www'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+version '0.0.1'
+
+apply plugin: 'kotlin2js'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+    compile project(":kotlin-ace-tutorial-js")
+}
+
+clean.doFirst() {
+    delete("${web_dir}")
+}
+
+build.doLast() {
+    // Copy all javascript dependencies into the web directory.
+    configurations.compile.each { File file ->
+        copy {
+            includeEmptyDirs = false
+
+            from zipTree(file.absolutePath)
+            into "${projectDir}/${web_dir}/lib"
+            include { fileTreeElement ->
+                def path = fileTreeElement.path
+                path.endsWith(".js") && (path.startsWith("META-INF/resources/") || !path.startsWith("META-INF/"))
+            }
+        }
+    }
+
+    // Copy scripts scripts into web directory.
+    copy {
+        includeEmptyDirs = false
+        from new File("$buildDir/classes/kotlin/main")
+        into "${web_dir}/lib"
+        include { fileTreeElement ->
+            def path = fileTreeElement.path
+            path.endsWith(".js")
+        }
+    }
+
+    /* Uncomment this to also include test scripts.
+    copy {
+        includeEmptyDirs = false
+        from new File("$buildDir/classes/kotlin/test")
+        into "${web_dir}/lib"
+        include { fileTreeElement ->
+            def path = fileTreeElement.path
+            path.endsWith(".js")
+        }
+    }
+    */
+
+    // Copy resources into web directory.
+    copy {
+        includeEmptyDirs = false
+        from new File("$buildDir/resources/main")
+        into "${web_dir}"
+    }
+
+}
