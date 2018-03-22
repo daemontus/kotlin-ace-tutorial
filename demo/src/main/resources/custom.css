@@ -34,17 +34,46 @@
     height: 400px;
 }
 
-#editor-card {
+#editor-card.dark {
     background: #3C3F41;
 }
 
+#editor-card.light {
+    background: #ECECEC;
+}
+
+
 #editor-card .mdl-card__title {
-    color: #BBBBBB;
     padding: 16px 42px 0 42px;
     font-weight: bold;
     text-align: center;
+}
+
+#editor-card.dark .mdl-card__title {
     border-bottom: 1px solid #4B4B4B;
 }
+
+#editor-card.light .mdl-card__title {
+    border-bottom: 1px solid #AEAEAE;
+}
+
+#theme-switch {
+    width: 120px;
+    float: right;
+    margin: 16px;
+}
+
+#theme-switch .mdl-switch__label {
+    margin-right: 30px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 4px;
+}
+
+#theme-switch .mdl-switch {
+    display: inline;
+}
+
 
 label.label-button {
   cursor: pointer;
@@ -60,20 +89,20 @@ label.input-custom-file input[type=file] {
     fill: use width 100% to fill the whole parent
  */
 
-.mdl-textfield.is-light .mdl-textfield__label {
+.dark .mdl-textfield .mdl-textfield__label {
     color: #ffffff;
 }
 
-.mdl-textfield.is-light .mdl-textfield__input {
+.dark .mdl-textfield .mdl-textfield__input {
     color: #ffffff;
     border-bottom-color: #ffffff;
 }
 
-.mdl-textfield.is-light .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+.dark .mdl-textfield .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
     color: #ffffff;
 }
 
-.mdl-textfield.is-light .mdl-textfield__label:after {
+.dark .mdl-textfield .mdl-textfield__label:after {
     background-color: #ffffff;
 }
 

@@ -35,12 +35,18 @@
         </div>
     </header>
     <main class="mdl-layout__content">
+        <div id="theme-switch">
+            <span class="mdl-switch__label">Dark</span>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="theme-switch-checkbox">
+                <input type="checkbox" id="theme-switch-checkbox" class="mdl-switch__input">
+            </label>
+        </div>
         <div class="mdl-grid">
             <div class="mdl-layout-spacer"></div>
-            <div id="editor-card" class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--4-col">
+            <div id="editor-card" class="light mdl-card mdl-shadow--4dp mdl-cell mdl-cell--4-col">
                 <div class="mdl-card__title">
-                    <div id="model-name" class="mdl-textfield fill is-light mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input mdl-color-text--primary-contrast" type="text" id="model-name-input">
+                    <div id="model-name" class="mdl-textfield fill mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="model-name-input">
                         <label class="mdl-textfield__label" for="model-name-input">Model name</label>
                     </div>
                 </div>
