@@ -1,3 +1,7 @@
+import ace.Ace
+import ace.Editor
+import ace.OOP_PATH
+import ace.TEXT_MODE_PATH
 import com.github.daemontus.theme.Theme
 import com.github.daemontus.theme.ThemeDark
 import com.github.daemontus.theme.ThemeLight
@@ -28,13 +32,25 @@ private val modelName: MaterialTextFieldElement =
         document.getElementById("model-name")?.unsafeCast<MaterialTextFieldElement>()
         ?: error("Missing #model-name text field")
 
-/**
+ /**
  * Here, we initialise the whole demo.
  */
+ @Suppress("unused")    // called from JS
 fun main(args: Array<String>) {
     initOpenButton()
     initSaveButton()
     initThemeToggle()
+    initEditorMode()
+}
+
+private fun initEditorMode() {
+    val oop: Ace.OOP = ace.require(OOP_PATH)
+    val textMode = ace.require<Ace.TextModeModule>(TEXT_MODE_PATH).mode
+
+    oop.inherits(ODE.Mode::class.js, textMode)
+    ODE.Mode.tokenizer = ODE.Tokenizer
+
+    editor.getSession().setMode(ODE.Mode)
 }
 
 private fun initThemeToggle() {
