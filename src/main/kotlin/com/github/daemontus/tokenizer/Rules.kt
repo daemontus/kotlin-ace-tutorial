@@ -37,7 +37,7 @@ sealed class Rules(val id: String) : TokenRule<Rules> {
             override fun readToken(line: String, position: Int): Token<Rules>? {
                 // we need to be at least two characters before the end of the line and the first needs to be \
                 return if (position >= line.length - 1 || line[position] != '\\') null else {
-                    line.substring(position..(position+1))?.toToken()
+                    line.substring(position..(position+1)).toToken()
                 }
             }
         }
@@ -117,7 +117,7 @@ sealed class Rules(val id: String) : TokenRule<Rules> {
         object Flow : Declaration("flow", "flow")
 
         companion object {
-            val ID_PREFIX = "declaration"
+            const val ID_PREFIX = "declaration"
         }
     }
 
@@ -133,7 +133,7 @@ sealed class Rules(val id: String) : TokenRule<Rules> {
     sealed class Misc(id: String, literal: String) : Rules(id), TokenLiteral<Rules> {
         override val token: Token<Rules> = literal.toToken()
 
-        object Range : Misc("range", "")
+        object Range : Misc("range", "..")
         object Comma : Misc("comma", ",")
         object Equal : Misc("equal", "=")
         object In : Misc("in", "in")
