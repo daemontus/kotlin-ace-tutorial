@@ -43,7 +43,7 @@
         </div>
         <div class="mdl-grid">
             <div class="mdl-layout-spacer"></div>
-            <div id="editor-card" class="light mdl-card mdl-shadow--4dp mdl-cell mdl-cell--4-col">
+            <div id="editor-card" class="light mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col">
                 <div class="mdl-card__title">
                     <div id="model-name" class="mdl-textfield fill mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="model-name-input">
@@ -54,7 +54,7 @@
                     Hello World!
                 </div>
             </div>
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--4-col">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col">
                 <div class="mdl-card__title mdl-color--light-green-800">
                     <h2 class="mdl-card__title-text mdl-color-text--primary-contrast">Model Preview</h2>
                 </div>
@@ -84,11 +84,21 @@
 <!-- Our Kotlin code compiled into JS -->
 
 <!--suppress HtmlUnknownTarget -->
-<script src="./lib/kotlin.js" type="text/javascript"></script>
+<script src="./lib/kotlin-stdlib-js-1.2.30/kotlin.js" type="text/javascript"></script>
 <!--suppress HtmlUnknownTarget -->
-<script src="./lib/kotlin-ace-tutorial-js.js" type="text/javascript"></script>
+<script src="./lib/kotlin-ace-tutorial-js/kotlin-ace-tutorial-js.js" type="text/javascript"></script>
+<!--suppress HtmlUnknownTarget -->
+<script src="./lib/common-0.0.2/common.js" type="text/javascript"></script>
+<!--suppress HtmlUnknownTarget -->
+<script src="./lib/main-0.0.2/main.js" type="text/javascript"></script>
+<!--suppress HtmlUnknownTarget -->
+<script src="./lib/worker-0.0.2/worker.js" type="text/javascript"></script>
 <!--suppress HtmlUnknownTarget -->
 <script src="./lib/demo.js" type="text/javascript"></script>
+
+<script type="application/javascript">
+    demo.initDemo();
+</script>
 
 </body>
 </html>

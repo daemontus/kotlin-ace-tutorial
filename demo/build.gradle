@@ -18,12 +18,14 @@ apply plugin: 'kotlin2js'
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
     compile project(":kotlin-ace-tutorial-js")
+    compile 'com.github.daemontus:kotlin-ace-wrapper:0.0.2'
 }
 
 clean.doFirst() {
@@ -37,7 +39,7 @@ build.doLast() {
             includeEmptyDirs = false
 
             from zipTree(file.absolutePath)
-            into "${web_dir}/lib"
+            into "${web_dir}/lib/${file.name.replaceFirst(~/\.[^\\.]+$/, '')}/"
             include { fileTreeElement ->
                 def path = fileTreeElement.path
                 path.endsWith(".js") && (path.startsWith("META-INF/resources/") || !path.startsWith("META-INF/"))
