@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.2.30'
+    ext.kotlin_version = '1.2.31'
     // The directory is outside of the whole project because then idea would index it upon every rebuild
     // which can be quite slow and rather useless.
     ext.web_dir = "${System.getProperty("user.home")}/www"
