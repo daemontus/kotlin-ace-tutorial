@@ -1,12 +1,16 @@
 import ace.*
+import com.github.daemontus.tokenizer.OdeParser
+import com.github.daemontus.tokenizer.OdeTokenizer
+import com.github.daemontus.tokenizer.Rules
 
 const val WORKER_PATH = "ace/mode/ode_worker"
 
-abstract class Worker(sender: Any?) : Mirror {
+abstract class Worker(private val sender: Any?) : Mirror {
+
+    private val tokenizer = OdeTokenizer()
 
     init {
         initSuper1Arg(ace.require<MirrorModule>(Module.mirror()).mirror, sender)
-        //initSuper(require<MirrorModule>(MIRROR_PATH).mirror, sender)
         setTimeout(250)
     }
 
@@ -14,6 +18,14 @@ abstract class Worker(sender: Any?) : Mirror {
         val value = this.document.getValue()
         println("Update:")
         println(value)
+        val result = HashMap<String, String>()
+        value.lines().fold<String, List<OdeTokenizer.State>?>(null, { state, line ->
+            val (tokens, nextState) = tokenizer.tokenizeLine(line, state ?: emptyList())
+            result.putAll(OdeParser.inferTypes(tokens).filterValues { it != Rules.Identifier.Local.id })
+            nextState
+        })
+        println("Types: $result")
+        sender.asDynamic().emit("type-hints", JSON.stringify(result.toList().toTypedArray()))
     }
 }
 

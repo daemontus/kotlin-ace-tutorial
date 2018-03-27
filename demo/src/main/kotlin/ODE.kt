@@ -1,6 +1,7 @@
 import ace.*
 import ace.internal.*
 import com.github.daemontus.tokenizer.OdeTokenizer
+import com.github.daemontus.tokenizer.Rules
 import kotlin.browser.window
 
 object ODE {
@@ -44,9 +45,34 @@ object ODE {
                     importScripts = JSON.stringify(initData)
             )
 
+            client.on<dynamic>("type-hints") { e ->
+                val hints: Array<Pair<String, String>> = JSON.parse(e.data as String)
+                val types = hints.mapNotNull { pair ->
+                    println(pair)
+                    when (pair.second) {
+                        Rules.Identifier.Local.id -> Rules.Identifier.Local
+                        Rules.Identifier.Function.id -> Rules.Identifier.Function
+                        Rules.Identifier.External.id -> Rules.Identifier.External
+                        Rules.Identifier.Undefined.id -> Rules.Identifier.Undefined
+                        Rules.Identifier.Variable.id -> Rules.Identifier.Variable
+                        Rules.Identifier.Parameter.id -> Rules.Identifier.Parameter
+                        Rules.Identifier.Constant.id -> Rules.Identifier.Constant
+                        Rules.Identifier.Annotation.id -> Rules.Identifier.Annotation
+                        else -> null
+                    }?.let { pair.first to it }
+                }.toMap()
+                println("Type hints: $types")
+                (tokenizer as OdeTokenizer).globalTypes = types
+                editor.getSession().asDynamic().bgTokenizer.start(0)
+                Unit
+            }
+
             client.attachToDocument(editor.getSession().getDocument())
             return client
         }
+
+        @JsName("getTokenizer")
+        fun getTokenizer(): ace.Tokenizer<*, *> = this.tokenizer
 
     }
 

@@ -3,7 +3,7 @@ package com.github.daemontus.tokenizer
 typealias OdeToken = Token<Rules>
 
 // number is always positive - negative numbers are applications of unary minus
-val NUMBER_LITERAL_REGEX = Regex("\\d+(?:\\.\\d+)?(?:e-?\\d+)?")
+val NUMBER_LITERAL_REGEX = Regex("\\d+(?:\\.\\d+)?(?:[eE]-?\\d+)?")
 val IDENTIFIER_REGEX = Regex("@?[a-zA-Z][a-zA-Z0-9_:]*")
 
 /**

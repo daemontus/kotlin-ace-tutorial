@@ -10,7 +10,7 @@ open class OdeTokenizer {
         object BlockComment : State()
     }
 
-    val globalTypes: Map<String, Identifier> = emptyMap()
+    var globalTypes: Map<String, Identifier> = emptyMap()
 
     fun tokenizeLine(line: String, startState: List<State>): Pair<List<OdeToken>, List<State>> {
         val tokens = ArrayList<OdeToken>()

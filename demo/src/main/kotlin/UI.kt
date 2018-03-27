@@ -59,7 +59,7 @@ private fun initThemeToggle(editor: Editor) {
         })
     }
 
-    editor.setTheme(idLight)
+    editor.setTheme(idDark)
 }
 
 /**
