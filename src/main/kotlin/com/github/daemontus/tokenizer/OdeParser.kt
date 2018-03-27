@@ -154,7 +154,6 @@ private fun List<OdeToken>.parseInfixOperator(at: Int, op: Rules, nested: (Int) 
     val (arg1, next1) = nested(at) ?: error("Expected formula")
     var next = next1
     val args = mutableListOf(arg1)
-    println("Got $arg1 for $op with next ${this.getOrNull(next)}")
     while (next < size && this[next].rule == op) {
         val (argN, nextN) = nested(next + 1) ?: error("Expected formula")
         args.add(argN)
@@ -172,7 +171,6 @@ private fun List<OdeToken>.parseBracketsOrNested(at: Int, nested: (Int) -> Pair<
                 if (continueAt >= size || this[continueAt].rule !== Rules.Misc.Parentheses.Close) {
                     error("Unclosed parentheses in $this")
                 }
-                println("Finished $formula")
                 formula to continueAt + 1
             }
         }
