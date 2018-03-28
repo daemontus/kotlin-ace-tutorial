@@ -105,14 +105,18 @@ fun simplify(formula: Formula): Formula {
                     val other = args - constants
                     val folded = constants.fold(1.0) { a, b -> a * b.value }
                     val newArgs = if (folded == 1.0) other else other + Formula.Number(folded)
-                    Formula.Function(formula.name, newArgs)
+                    if (newArgs.size == 1) newArgs[0] else {
+                        Formula.Function(formula.name, newArgs)
+                    }
                 }
                 "+" -> {
                     val constants = args.filterIsInstance<Formula.Number>()
                     val other = args - constants
                     val folded = constants.fold(0.0) { a, b -> a + b.value }
                     val newArgs = if (folded == 0.0) other else other + Formula.Number(folded)
-                    Formula.Function(formula.name, newArgs)
+                    if (newArgs.size == 1) newArgs[0] else {
+                        Formula.Function(formula.name, newArgs)
+                    }
                 }
                 else -> Formula.Function(formula.name, args)
             }
